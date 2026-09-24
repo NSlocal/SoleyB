@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Solely Browser</string>
+    <string name="url_hint">Cari atau masukkan URL...</string>
+    <string name="err_http_blocked">HTTP tidak terenkripsi diblokir — ubah di solely://flags</string>
+    <string name="flags_title">Pengaturan Fitur Eksperimental</string>
+    <string name="settings_title">Pengaturan</string>
+    <string name="btn_flags">Bendera Fitur (solely://flags)</string>
+
+    <string name="flag_https_only">Mode Hanya HTTPS</string>
+    <string name="flag_https_only_desc">Otomatis naikkan HTTP ke HTTPS yang aman</string>
+    <string name="flag_tls_min">Versi TLS Minimum</string>
+    <string name="flag_tls_min_desc">Tolak TLS lama yang tidak aman (1.0 / 1.1)</string>
+    <string name="flag_tls13">Utamakan TLS 1.3</string>
+    <string name="flag_tls13_desc">Gunakan TLS 1.3 yang lebih cepat &amp; aman</string>
+    <string name="flag_cleartext">Blokir Semua Lalu Lintas HTTP</string>
+    <string name="flag_cleartext_desc">Tolak sepenuhnya koneksi tidak terenkripsi</string>
+    <string name="flag_quic">HTTP/3 (QUIC)</string>
+    <string name="flag_quic_desc">Aktifkan protokol QUIC yang cepat</string>
+    <string name="flag_adblock">Pemblokir Iklan Bawaan</string>
+    <string name="flag_adblock_desc">Sembunyikan iklan &amp; elemen pelacak</string>
+    <string name="flag_dark">Paksa Mode Gelap</string>
+    <string name="flag_dark_desc">Balik warna halaman untuk penggunaan malam</string>
+    <string name="flag_3pc">Izinkan Cookie Pihak Ketiga</string>
+    <string name="flag_3pc_desc">Aktifkan cookie lintas situs (risiko privasi)</string>
+</resources>
