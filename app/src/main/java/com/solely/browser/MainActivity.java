@@ -2,7 +2,6 @@ package com.solely.browser;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebResourceRequest;
@@ -24,7 +23,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         flags = FlagsProvider.get(this);
-        AdBlocker.init(this);  // ✅ Inisialisasi AdBlocker — TIDAK NULL!
+        AdBlocker.init(this);
 
         webView = findViewById(R.id.webview);
         etUrl = findViewById(R.id.et_url);
@@ -48,7 +47,6 @@ public class MainActivity extends Activity {
             ? WebSettings.MIXED_CONTENT_NEVER_ALLOW
             : WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
 
-        // ✅ Chrome Extension MV3 Support
         webView.addJavascriptInterface(new ExtensionBridge(webView), "SolelyBridge");
 
         String mv3Compat =
@@ -71,7 +69,6 @@ public class MainActivity extends Activity {
 
         webView.evaluateJavascript(mv3Compat, null);
 
-        // ✅ AdBlock + URL Handling
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView wv, WebResourceRequest req) {
