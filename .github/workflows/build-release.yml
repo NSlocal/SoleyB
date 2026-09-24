@@ -1,5 +1,5 @@
 name: Build & Release Solely Browser
-run-name: Solely API34+ 🚀 ${{ github.ref_name }}
+run-name: SoleyB Signed 🚀 ${{ github.ref_name }}
 
 on:
   push:
@@ -23,33 +23,34 @@ jobs:
       - name: Set Execute Permission
         run: chmod +x gradlew
 
-      - name: Build Release APK
-        run: ./gradlew assembleRelease --no-daemon
+      # ✅ SIGNING CONFIG — Add to build.gradle or here
+      - name: Setup Keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+        run: |
+          if [ -n "$KEYSTORE_BASE64" ]; then
+            echo "$KEYSTORE_BASE64" | base64 -d > app/keystore.jks
+          fi
 
-      # ✅ Cek di mana APK sebenarnya
-      - name: List APK Files
+      - name: Build Signed Release APK
+        env:
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+        run: ./gradlew assembleRelease --no-daemon \
+          -PkeystoreFile=keystore.jks \
+          -PkeystorePassword="$STORE_PASSWORD" \
+          -PkeyAlias="$KEY_ALIAS" \
+          -PkeyPassword="$KEY_PASSWORD"
+
+      - name: Show APK Location
         run: find . -name "*.apk" -type f
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: solely-browser-api34-arm64-v1.0.36
-          path: |
-            app/build/outputs/apk/release/*.apk
-            !app/build/outputs/apk/release/*-unaligned.apk
-            !app/build/outputs/apk/release/*-debug.apk
-
-      - name: Create GitHub Release
-        if: startsWith(github.ref, 'refs/tags/v')
-        uses: softprops/action-gh-release@v1
-        with:
-          files: app/build/outputs/apk/release/app-release.apk
-          name: Solely Browser ${{ github.ref_name }}
-          body: |
-            ✅ **Solely Browser — Full Release**
-            • Min SDK: 34 (Android 14+)
-            • Target SDK: 36 (Android 15)
-            • Arch: arm64-v8a only
-            • Size: ~2.7 MB
-            • Languages: English + Bahasa Indonesia
-            • Fully Open Source
+          name: SoleyB-Signed-API34
+          path: app/build/outputs/apk/release/*.apk
