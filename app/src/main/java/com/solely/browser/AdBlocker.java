@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class AdBlocker {
     private static final Set<String> AD_HOSTS = new HashSet<>();
-    private static Context appContext;
+    private static Context ctx;
 
     static {
         String[] hosts = {
@@ -19,36 +19,31 @@ public class AdBlocker {
             "analytics.google.com", "googletagmanager.com", "googletagservices.com",
             "scorecardresearch.com", "quantserve.com", "chartbeat.com", "hotjar.com",
             "adroll.com", "criteo.com", "media.net", "openx.net", "pubmatic.com",
-            "rubiconproject.com", "adnxs.com", "advertising.com", "teads.tv",
-            "outbrain.com", "cookiebot.com", "cloudflareinsights.com",
-            "ad.", "ads.", "banner.", "pixel.", "track.", "beacon.", "stats."
+            "rubiconproject.com", "adnxs.com", "teads.tv", "outbrain.com",
+            "cookiebot.com", "cloudflareinsights.com", "ad.", "ads.", "banner."
         };
         for (String h : hosts) AD_HOSTS.add(h);
     }
 
     public static void init(Context context) {
-        appContext = context.getApplicationContext();
-    }
-
-    public static boolean shouldBlock(String url) {
-        if (url == null || appContext == null) return false;
-        
-        Uri uri = Uri.parse(url);
-        String host = uri.getHost();
-        if (host == null) return false;
-
-        FlagsProvider flags = FlagsProvider.get(appContext);
-        if (!flags.isEnabled("adblock", true)) return false;
-
-        for (String adHost : AD_HOSTS) {
-            if (host.contains(adHost)) return true;
-        }
-        return false;
+        ctx = context.getApplicationContext();
     }
 
     public static WebResourceResponse blockIfNeeded(WebResourceRequest req) {
-        if (shouldBlock(req.getUrl().toString())) {
-            return new WebResourceResponse("text/plain", "utf-8", null);
+        if (ctx == null) return null;
+        
+        String url = req.getUrl().toString();
+        Uri uri = Uri.parse(url);
+        String host = uri.getHost();
+        if (host == null) return null;
+
+        FlagsProvider flags = FlagsProvider.get(ctx);
+        if (!flags.isEnabled("adblock", true)) return null;
+
+        for (String adHost : AD_HOSTS) {
+            if (host.contains(adHost)) {
+                return new WebResourceResponse("text/plain", "utf-8", null);
+            }
         }
         return null;
     }
