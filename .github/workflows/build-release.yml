@@ -1,0 +1,37 @@
+name: Build & Release Solely Browser
+run-name: Solely v1.0.36 🚀
+
+on:
+  push: { tags: ['v*'] }
+  workflow_dispatch: {}
+
+permissions: { contents: write }
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { java-version: '17', distribution: 'temurin' }
+      - run: chmod +x gradlew
+      - run: ./gradlew assembleRelease --no-daemon
+      - uses: actions/upload-artifact@v4
+        with:
+          name: solely-browser-arm64-v1.0.36
+          path: app/build/outputs/apk/release/app-release.apk
+      - if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v1
+        with:
+          files: app/build/outputs/apk/release/app-release.apk
+          name: Solely Browser v1.0.36
+          body: |
+            ✅ **Solely Browser — Full Release**
+            • Engine: System WebView (Chromium-powered, no bloat)
+            • Size: ~3 MB arm64
+            • Languages: English • Bahasa Indonesia
+            • `solely://flags` — 8+ controls
+            • HTTPS-Only + TLS 1.2+ enforced
+            • Ad-blocker built-in
+            • No telemetry, fully open source
+            
