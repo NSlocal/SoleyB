@@ -10,15 +10,14 @@ android {
         versionName "1.0.36"
     }
 
-    signingConfigs {
+        signingConfigs {
         release {
-            storeFile file(project.hasProperty('keystoreFile') ? project.keystoreFile : "debug.keystore")
-            storePassword project.hasProperty('keystorePassword') ? project.keystorePassword : "android"
-            keyAlias project.hasProperty('keyAlias') ? project.keyAlias : "androiddebugkey"
-            keyPassword project.hasProperty('keyPassword') ? project.keyPassword : "android"
+            storeFile file("debug.keystore")
+            storePassword "android"
+            keyAlias "androiddebugkey"
+            keyPassword "android"
         }
     }
-
     buildTypes {
         release {
             minifyEnabled true
@@ -26,4 +25,3 @@ android {
             signingConfig signingConfigs.release
         }
     }
-}
