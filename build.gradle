@@ -11,13 +11,14 @@ buildscript {
         mavenCentral()
     }
     dependencies {
+        // ✅ Cocokkan: AGP 8.7.0 butuh Gradle 8.9
         classpath "com.android.tools.build:gradle:8.7.0"
     }
 }
 
 allprojects {
     repositories {
-        // ✅ KOSONGKAN — sudah dideklarasikan di settings.gradle
+        // KOSONG — sudah di settings.gradle
     }
 }
 
