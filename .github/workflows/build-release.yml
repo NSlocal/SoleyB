@@ -12,9 +12,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-java@v5
+      - name: Setup Java 17
+        uses: actions/setup-java@v5
         with:
           java-version: '17'
           distribution: 'temurin'
@@ -22,15 +24,23 @@ jobs:
       - name: Set Execute Permission
         run: chmod +x gradlew
 
-      # ✅ TANPA KUNCI / TANPA RAHASIA — langsung build
       - name: Build Release APK
-        run: ./gradlew assembleRelease --no-daemon
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleRelease --no-daemon --stacktrace 2>&1
+          echo "EXIT CODE: $?"
 
       - name: Show APK Location
-        run: find . -name "*.apk" -type f
+        run: |
+          echo "=== Mencari file APK ==="
+          find . -name "*.apk" -type f 2>/dev/null || echo "Tidak ada APK ditemukan"
+          echo "=== Folder release ==="
+          ls -la app/build/outputs/apk/release/ 2>/dev/null || echo "Folder release tidak ada"
 
-      - name: Upload Artifact
+      - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: SolelyBrowser-v1.0.36
           path: app/build/outputs/apk/release/*.apk
+          retention-days: 7
+          
