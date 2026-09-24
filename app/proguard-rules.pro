@@ -1,0 +1,5 @@
+-optimization-passages 5
+-optimizations !code/allocation/variable
+-keep class com.solely.browser.** { *; }
+-dontwarn android.webkit.**
+-keepattributes *Annotation*
