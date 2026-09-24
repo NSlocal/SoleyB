@@ -1,50 +1,43 @@
 package com.solely.browser;
 
+import android.content.Context;
 import android.net.Uri;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class AdBlocker {
     private static final Set<String> AD_HOSTS = new HashSet<>();
-    
+    private static Context appContext;
+
     static {
-        // Full ad/tracking domains
         String[] hosts = {
             "doubleclick.net", "googlesyndication.com", "googleadservices.com",
             "ad.doubleclick.net", "adservice.google.com", "amazon-adsystem.com",
-            "facebook.com/tr", "analytics.google.com", "googletagmanager.com",
-            "googletagservices.com", "scorecardresearch.com", "quantserve.com",
-            "chartbeat.com", "hotjar.com", "newrelic.com", "segment.io",
-            "adroll.com", "criteo.com", "media.net", "openx.net",
-            "pubmatic.com", "rubiconproject.com", "ssp.api", "adnxs.com",
-            "advertising.com", "attn.tv", "bouncex.net", "brsrvr.com",
-            "cloudflareinsights.com", "consent.cookiebot.com", "cookiebot.com",
-            "cruxd.com", "dwin1.com", "exelator.com", "gemius.pl",
-            "heapanalytics.com", "hs-analytics.net", "hubspot.com",
-            "liadm.com", "mxpnl.com", "nr-data.net", "omtrdc.net",
-            "outbrain.com", "pagefair.com", "parsely.com", "piano.io",
-            "privacy-mgmt.com", "quantummetric.com", "sentry-cdn.com",
-            "simpli.fi", "stripe.network", "tapad.com", "teads.tv",
-            "thetradedesk.com", "tracker.com", "trk.pinterest.com",
-            "userzoom.com", "verizonmedia.com", "wcf.io", "xiti.com",
-            "ad-srv.media", "adserver", "ads.", "ad.", "banner.", "pixel.",
-            "track.", "beacon.", "stats.", "log.", "cdn.ads", "media.ads"
+            "analytics.google.com", "googletagmanager.com", "googletagservices.com",
+            "scorecardresearch.com", "quantserve.com", "chartbeat.com", "hotjar.com",
+            "adroll.com", "criteo.com", "media.net", "openx.net", "pubmatic.com",
+            "rubiconproject.com", "adnxs.com", "advertising.com", "teads.tv",
+            "outbrain.com", "cookiebot.com", "cloudflareinsights.com",
+            "ad.", "ads.", "banner.", "pixel.", "track.", "beacon.", "stats."
         };
         for (String h : hosts) AD_HOSTS.add(h);
     }
 
+    public static void init(Context context) {
+        appContext = context.getApplicationContext();
+    }
+
     public static boolean shouldBlock(String url) {
-        if (url == null) return false;
+        if (url == null || appContext == null) return false;
+        
         Uri uri = Uri.parse(url);
         String host = uri.getHost();
         if (host == null) return false;
-        
-        FlagsProvider flags = FlagsProvider.get(null);
+
+        FlagsProvider flags = FlagsProvider.get(appContext);
         if (!flags.isEnabled("adblock", true)) return false;
 
         for (String adHost : AD_HOSTS) {
