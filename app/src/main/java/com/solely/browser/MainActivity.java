@@ -8,7 +8,6 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Button;
 import android.widget.EditText;
 
 public class MainActivity extends Activity {
@@ -22,7 +21,9 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        flags = new FlagsProvider(this);
+        // ✅ BENAR: pakai .get() BUKAN new
+        flags = FlagsProvider.get(this);
+
         webView = findViewById(R.id.webview);
         etUrl = findViewById(R.id.et_url);
 
@@ -33,11 +34,12 @@ public class MainActivity extends Activity {
 
     private void setupWebView() {
         WebSettings ws = webView.getSettings();
-        ws.setJavaScriptEnabled(false);
-        ws.setDomStorageEnabled(false);
+        ws.setJavaScriptEnabled(true);
+        ws.setDomStorageEnabled(true);
         ws.setAllowFileAccess(false);
         ws.setAllowContentAccess(false);
         ws.setCacheMode(WebSettings.LOAD_DEFAULT);
+        
         ws.setMixedContentMode(flags.httpsOnly()
             ? WebSettings.MIXED_CONTENT_NEVER_ALLOW
             : WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
@@ -59,8 +61,12 @@ public class MainActivity extends Activity {
     private void setupButtons() {
         findViewById(R.id.btn_go).setOnClickListener(v -> goUrl());
         findViewById(R.id.btn_home).setOnClickListener(v -> goHome());
-        findViewById(R.id.btn_back).setOnClickListener(v -> { if(webView.canGoBack()) webView.goBack(); });
-        findViewById(R.id.btn_forward).setOnClickListener(v -> { if(webView.canGoForward()) webView.goForward(); });
+        findViewById(R.id.btn_back).setOnClickListener(v -> {
+            if (webView.canGoBack()) webView.goBack();
+        });
+        findViewById(R.id.btn_forward).setOnClickListener(v -> {
+            if (webView.canGoForward()) webView.goForward();
+        });
         findViewById(R.id.btn_flags).setOnClickListener(v ->
             startActivity(new Intent(this, FlagsActivity.class)));
         findViewById(R.id.btn_settings).setOnClickListener(v ->
@@ -89,7 +95,7 @@ public class MainActivity extends Activity {
 
     private void goHome() {
         etUrl.setText("");
-        webView.loadUrl("about:blank");
+        webView.loadUrl("https://duckduckgo.com");
     }
 
     private void handleSolelyUrl(String url) {
