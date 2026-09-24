@@ -4,11 +4,10 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
 public class ExtensionBridge {
-    @SuppressWarnings("unused")
     private final WebView webView;
 
     public ExtensionBridge(WebView wv) {
-        this.webView = wv;
+        webView = wv;
     }
 
     @JavascriptInterface
