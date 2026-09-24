@@ -1,17 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:orientation="vertical" android:background="#FFFFFF">
-    <LinearLayout android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:orientation="horizontal"
-        android:padding="8dp" android:gravity="center_vertical">
-        <EditText android:id="@+id/url_bar"
-            android:layout_width="0dp" android:layout_height="44dp"
-            android:layout_weight="1" android:hint="@string/url_hint"
-            android:inputType="textUri" android:background="#F5F5F5"
-            android:paddingHorizontal="12dp" android:textSize="14sp"/>
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFFFF">
+
+    <!-- Baris Atas: Pencarian + Aksi -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:gravity="center_vertical">
+
+        <EditText
+            android:id="@+id/et_url"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/url_hint"
+            android:inputType="textUri"
+            android:singleLine="true"
+            android:padding="12dp"
+            android:background="#F5F5F5"
+            android:textSize="15sp"/>
+
+        <Button
+            android:id="@+id/btn_go"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="→"
+            android:layout_marginStart="6dp"
+            android:backgroundTint="#2196F3"/>
     </LinearLayout>
-    <WebView android:id="@+id/webview"
-        android:layout_width="match_parent" android:layout_height="0dp"
+
+    <!-- Pintasan Cepat -->
+    <LinearLayout
+        android:id="@+id/shortcuts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/sc_google"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🌐 Google"
+            android:padding="10dp"
+            android:layout_marginHorizontal="4dp"
+            android:background="#F1F1F1"
+            android:clickable="true"
+            android:focusable="true"/>
+
+        <TextView
+            android:id="@+id/sc_youtube"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="▶️ YouTube"
+            android:padding="10dp"
+            android:layout_marginHorizontal="4dp"
+            android:background="#F1F1F1"
+            android:clickable="true"
+            android:focusable="true"/>
+
+        <TextView
+            android:id="@+id/sc_new"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="➕ Baru"
+            android:padding="10dp"
+            android:layout_marginHorizontal="4dp"
+            android:background="#E8F5E9"
+            android:clickable="true"
+            android:focusable="true"/>
+    </LinearLayout>
+
+    <!-- WebView -->
+    <WebView
+        android:id="@+id/webview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"/>
+
+    <!-- Baris Navigasi BAWAH -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:background="#FAFAFA"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btn_home"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="🏠"
+            android:backgroundTint="#E0E0E0"/>
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="◀"
+            android:backgroundTint="#E0E0E0"/>
+
+        <Button
+            android:id="@+id/btn_forward"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="▶"
+            android:backgroundTint="#E0E0E0"/>
+
+        <Button
+            android:id="@+id/btn_flags"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="⚙️"
+            android:backgroundTint="#BBDEFB"/>
+
+        <Button
+            android:id="@+id/btn_settings"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="☰"
+            android:backgroundTint="#E0E0E0"/>
+    </LinearLayout>
 </LinearLayout>
