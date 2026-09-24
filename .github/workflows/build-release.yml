@@ -3,7 +3,6 @@ run-name: Solely API34+ 🚀 ${{ github.ref_name }}
 
 on:
   push:
-    branches: [ main ]
     tags: [ 'v*' ]
   workflow_dispatch: {}
 
