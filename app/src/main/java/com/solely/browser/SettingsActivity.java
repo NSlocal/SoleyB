@@ -3,7 +3,6 @@ package com.solely.browser;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -14,14 +13,17 @@ public class SettingsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        findViewById(R.id.btn_flags).setOnClickListener(v -> {
-            Intent intent = new Intent(SettingsActivity.this, FlagsActivity.class);
-            startActivity(intent);
-        });
+        Button btnFlags = findViewById(R.id.btn_open_flags);
+        if (btnFlags != null) {
+            btnFlags.setOnClickListener(v -> {
+                Intent intent = new Intent(SettingsActivity.this, FlagsActivity.class);
+                startActivity(intent);
+            });
+        }
 
-        TextView verText = findViewById(R.id.app_version);
-        if (verText != null) {
-            verText.setText("Solely Browser v1.0.36");
+        TextView versionText = findViewById(R.id.tv_app_version);
+        if (versionText != null) {
+            versionText.setText("Solely Browser v1.0.36");
         }
     }
 }
