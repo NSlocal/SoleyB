@@ -24,12 +24,12 @@ public class FlagsActivity extends Activity {
         setupToggle(R.id.switch_tls13, "tls13_only", false);
     }
 
-    private void setupToggle(int id, String key, boolean defValue) {
-        Switch sw = findViewById(id);
-        if (sw == null) return;
-        
-        sw.setChecked(flags.isEnabled(key, defValue));
-        sw.setOnCheckedChangeListener((btn, isChecked) -> {
+    private void setupToggle(int resId, String key, boolean defaultValue) {
+        Switch toggle = findViewById(resId);
+        if (toggle == null) return;
+
+        toggle.setChecked(flags.isEnabled(key, defaultValue));
+        toggle.setOnCheckedChangeListener((buttonView, isChecked) -> {
             flags.set(key, isChecked);
         });
     }
