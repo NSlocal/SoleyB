@@ -1,0 +1,6 @@
+ext {
+    appVersionCode = 1036
+    appVersionName = "1.0.36"
+    minSdkVer = 24
+    targetSdkVer = 36
+}
