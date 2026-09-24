@@ -1,9 +1,8 @@
 name: Build & Release Solely Browser
-run-name: SoleyB Signed 🚀 ${{ github.ref_name }}
+run-name: SoleyB 🚀 ${{ github.ref_name }}
 
 on:
   push:
-    tags: [ 'v*' ]
   workflow_dispatch: {}
 
 permissions:
@@ -23,28 +22,9 @@ jobs:
       - name: Set Execute Permission
         run: chmod +x gradlew
 
-      # ✅ SIGNING CONFIG — Add to build.gradle or here
-      - name: Setup Keystore
-        env:
-          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
-          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-          STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
-        run: |
-          if [ -n "$KEYSTORE_BASE64" ]; then
-            echo "$KEYSTORE_BASE64" | base64 -d > app/keystore.jks
-          fi
-
-      - name: Build Signed Release APK
-        env:
-          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-          STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
-        run: ./gradlew assembleRelease --no-daemon \
-          -PkeystoreFile=keystore.jks \
-          -PkeystorePassword="$STORE_PASSWORD" \
-          -PkeyAlias="$KEY_ALIAS" \
-          -PkeyPassword="$KEY_PASSWORD"
+      # ✅ TANPA KUNCI / TANPA RAHASIA — langsung build
+      - name: Build Release APK
+        run: ./gradlew assembleRelease --no-daemon
 
       - name: Show APK Location
         run: find . -name "*.apk" -type f
@@ -52,5 +32,5 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: SoleyB-Signed-API34
+          name: SolelyBrowser-v1.0.36
           path: app/build/outputs/apk/release/*.apk
