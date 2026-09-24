@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:background="#FFFFFF">
 
-    <!-- Baris Atas: Pencarian + Aksi -->
+    <!-- Baris Pencarian -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,60 +31,66 @@
             android:layout_height="wrap_content"
             android:text="→"
             android:layout_marginStart="6dp"
-            android:backgroundTint="#2196F3"/>
+            android:backgroundTint="#2196F3"
+            android:textColor="#FFFFFF"/>
     </LinearLayout>
 
     <!-- Pintasan Cepat -->
     <LinearLayout
-        android:id="@+id/shortcuts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="8dp"
+        android:padding="4dp"
         android:gravity="center">
 
         <TextView
             android:id="@+id/sc_google"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="🌐 Google"
             android:padding="10dp"
             android:layout_marginHorizontal="4dp"
             android:background="#F1F1F1"
             android:clickable="true"
-            android:focusable="true"/>
+            android:focusable="true"
+            android:gravity="center"/>
 
         <TextView
             android:id="@+id/sc_youtube"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="▶️ YouTube"
             android:padding="10dp"
             android:layout_marginHorizontal="4dp"
             android:background="#F1F1F1"
             android:clickable="true"
-            android:focusable="true"/>
+            android:focusable="true"
+            android:gravity="center"/>
 
         <TextView
             android:id="@+id/sc_new"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="➕ Baru"
             android:padding="10dp"
             android:layout_marginHorizontal="4dp"
             android:background="#E8F5E9"
             android:clickable="true"
-            android:focusable="true"/>
+            android:focusable="true"
+            android:gravity="center"/>
     </LinearLayout>
 
-    <!-- WebView -->
+    <!-- Isi Halaman -->
     <WebView
         android:id="@+id/webview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
-    <!-- Baris Navigasi BAWAH -->
+    <!-- Navigasi Bawah -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -99,7 +105,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="🏠"
-            android:backgroundTint="#E0E0E0"/>
+            android:backgroundTint="#E0E0E0"
+            android:textSize="18sp"/>
 
         <Button
             android:id="@+id/btn_back"
@@ -107,7 +114,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="◀"
-            android:backgroundTint="#E0E0E0"/>
+            android:backgroundTint="#E0E0E0"
+            android:textSize="18sp"/>
 
         <Button
             android:id="@+id/btn_forward"
@@ -115,7 +123,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="▶"
-            android:backgroundTint="#E0E0E0"/>
+            android:backgroundTint="#E0E0E0"
+            android:textSize="18sp"/>
 
         <Button
             android:id="@+id/btn_flags"
@@ -123,7 +132,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="⚙️"
-            android:backgroundTint="#BBDEFB"/>
+            android:backgroundTint="#BBDEFB"
+            android:textSize="18sp"/>
 
         <Button
             android:id="@+id/btn_settings"
@@ -131,6 +141,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="☰"
-            android:backgroundTint="#E0E0E0"/>
+            android:backgroundTint="#E0E0E0"
+            android:textSize="18sp"/>
     </LinearLayout>
 </LinearLayout>
