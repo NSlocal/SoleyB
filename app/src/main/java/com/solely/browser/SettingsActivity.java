@@ -1,6 +1,7 @@
 package com.solely.browser;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,7 +15,8 @@ public class SettingsActivity extends Activity {
         setContentView(R.layout.activity_settings);
 
         findViewById(R.id.btn_flags).setOnClickListener(v -> {
-            startActivity(new Intent(this, FlagsActivity.class));
+            Intent intent = new Intent(SettingsActivity.this, FlagsActivity.class);
+            startActivity(intent);
         });
 
         TextView verText = findViewById(R.id.app_version);
